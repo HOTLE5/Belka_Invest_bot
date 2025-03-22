@@ -1,90 +1,75 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инвестирование</title>
+    <title>Инвестиции</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
-        .header {
-            margin-bottom: 20px;
-        }
-        .footer {
-            margin-top: 30px;
             display: flex;
-            justify-content: space-between;
-            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
         }
-        button {
-            padding: 12px 30px;
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .button {
+            padding: 15px 30px;
             font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
+            background-color: #4CAF50;
             color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .button.vip {
+            background-color: #FFD700;
         }
-        .footer button {
-            flex: 1;
+
+        .button:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <!-- Заголовок -->
-    <div class="header">
-        <h1>Название Компании</h1>
-        <p id="username">Загрузка имени пользователя...</p> <!-- Имя пользователя будет динамически обновлено -->
-    </div>
+    <div class="container">
+        <h1>Добро пожаловать в наш инвестиционный сервис!</h1>
+        <p>Выберите вариант инвестирования:</p>
 
-    <!-- Кнопка Инвестировать -->
-    <div>
-        <button id="invest" onclick="invest()">Инвестировать</button>
-    </div>
-
-    <!-- Кнопки снизу -->
-    <div class="footer">
-        <button onclick="goToMain()">Главное</button>
-        <button onclick="goToFriends()">Друзья</button>
-        <button onclick="goToMap()">Карта</button>
+        <button class="button" onclick="sendInvestmentChoice('5%')">5% стандартный</button>
+        <button class="button vip" onclick="sendInvestmentChoice('10% VIP')">10% VIP</button>
     </div>
 
     <script>
-        // Загрузка имени пользователя из Telegram Web App
-        if (window.Telegram.WebApp) {
-            const userName = window.Telegram.WebApp.initDataUnsafe?.user?.first_name || 'Неизвестный';
-            document.getElementById('username').textContent = `Привет, ${userName}`;
+        function sendInvestmentChoice(choice) {
+            // Передаем выбор пользователя в Telegram
+            window.Telegram.WebApp.sendData(choice);
         }
 
-        // Функция открытия ссылки для инвестирования
-        function invest() {
-            window.Telegram.WebApp.openLink("https://your-web-app-url.com/invest");
-        }
+        // Инициализация Web App
+        window.Telegram.WebApp.onEvent('webAppData', function(event) {
+            console.log('Получены данные из WebApp:', event.data);
+        });
+    </script>
 
-        // Логика кнопок снизу
-        function goToMain() {
-            alert('Перейти на главную страницу');
-            // Здесь можно добавить логику для перехода или открытия новой страницы
-        }
+</body>
+</html>
 
-        function goToFriends() {
-            alert('Перейти к друзьям');
-            // Добавьте логику для раздела "Друзья"
-        }
-
-        function goToMap() {
-            alert('Открыть карту');
-            // Логика для карты
-        }
     </script>
 
 </body>
