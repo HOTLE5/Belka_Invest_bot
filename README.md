@@ -8,3 +8,4 @@ git push -u origin main
 git add requirements.txt
 git commit -m "Добавлен requirements.txt"
 git push origin main
+
